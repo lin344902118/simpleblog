@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <div id="container">
+        {% block main %}
+            <div id="main">
+                <span id="article_id" style="display:none">{{ article.id }}</span>
+                <article>
+                    <header class="article_info">
+                        <h1>
+                            <a href="{% url 'article:detail' article.id %}">{{ article.title }}</a>
+                        </h1>
+                        <p class="article_author">
+                            By
+                            <a href="">
+                            {{ article.author }}
+                            </a>
+                        </p>
+                        <p class="article_time">
+                            <time>发表于{{ article.public_time }}</time>
+                        </p>
+                    </header>
+                    <div class="article_content">
+                        <p>
+                        {{ article.content }}
+                        </p>
+                        <p class="article_more">
+                        </p>
+                    </div>
+                    <footer class="article_footer">
+                        <div class="article_catetags">
+                            {{ article.category }}
+                        </div>
+                        <img src="{% static 'image/zan.jpg' %}" class="zan"/>
+                        <span id="votes">{{ article.votes }}</span>
+                        <img src="{% static 'image/comment.jpg' %}" class="comment" />
+                    </footer>
+                    <form method="post" action="#" class="article_footer" style="display:none" id="comment">
+                        {{ commentForm }}
+                    </form>
+                </article>
+            </div>
+        {% endblock %}
+        {% block sidebar %}
+            <div id="sidebar">
+                <div class="linkslist">
+                    <p class="asidetitle">
+                        标签
+                    </p>
+                    <ul>
+                        {% for category in categorys %}
+                        <li>
+                            <a href="" target="_blank">{{ category }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+{% block script %}
+<script src="{% static 'js/baseJs.js'%}"></script>
+<script>
+    $(document).ready(function(){
+        $('.zan').click(function(){
+            var article_id = $('#article_id').text();
+            var datas = {'article_id': article_id};
+            ajax(type='POST', url='/article/votes/', datas=datas, msg='点赞')
+        });
+        $('.comment').click(function(){
+            $('#comment').style.display='block';
+        });
+    });
+</script>
+{% endblock %}

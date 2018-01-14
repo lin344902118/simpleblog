@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div id="container">
+        {% block main %}
+            <div id="main">
+                {% for article in articles.object_list %}
+                <article>
+                    <header class="article_info">
+                        <h1>
+                            <a href="{% url 'article:detail' article.id %}">{{ article.title }}</a>
+                        </h1>
+                        <p class="article_author">
+                            By
+                            <a href="">
+                            {{ article.author }}
+                            </a>
+                        </p>
+                        <p class="article_time">
+                            <time>发表于{{ article.public_time }}</time>
+                        </p>
+                    </header>
+                    <div class="article_content">
+                        <p>
+                        {{ article.content }}
+                        </p>
+                        <p class="article_more">
+                        </p>
+                    </div>
+                    <footer class="article_footer">
+                        <div class="article_catetags">
+                            {{ article.category }}
+                        </div>
+                        <div class="comments_count">
+
+                        </div>
+                    </footer>
+                </article>
+                {% endfor %}
+                <!-- 分页器 -->
+                <div>
+                    <ul class="actions">
+                        {% if articles.has_previous %}
+                        <li>
+                            <a href="?{{ articles.previous_page_number.querystring }}" class="prev">上一页</a>
+                        </li>
+                        {% endif %}
+                        {% for page in articles.pages %}
+                        {% if page %}
+                        {% ifequal page articles.number %}
+                        <li>
+                            <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+                        </li>
+                        {% endifequal %}
+                        {% else %}
+                        <li>
+                            <a href="">...</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if articles.has_next %}
+                        <li>
+                            <a href="?{{ articles.next_page_number.querystring }}" class="next">下一页</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        {% endblock %}
+        {% block sidebar %}
+            <div id="sidebar">
+                <div class="linkslist">
+                    <p class="asidetitle">
+                        标签
+                    </p>
+                    <ul>
+                        {% for category in categorys %}
+                        <li>
+                            <a href="" target="_blank">{{ category }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

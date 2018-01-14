@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>记账系统</title>
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='bootstrap-3.3.7-dist/css/bootstrap.min.css')}}">
+    <style>
+        body{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h1>欢迎使用记账系统</h1>
+     <div class="col-sm-offset-10">
+     {% if session.logged_in %}
+        <a href="{{ url_for('logout') }}">注销</a>
+     {% endif %}
+     </div>
+     {% block body %}{% endblock %}
+</body>
+<script src="{{ url_for('static', filename='jquery-3.2.1.min.js')}}"></script>
+<script src="{{ url_for('static', filename='bootstrap-3.3.7-dist/js/bootstrap.js')}}"></script>
+{% block script %}
+{% endblock %}
+</html>
