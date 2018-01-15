@@ -41,13 +41,12 @@ INSTALLED_APPS = [
     'pure_pagination',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -83,7 +82,7 @@ DATABASES = {
         'NAME': 'test',
         'USER': 'name',
         'PASSWORD': 'password',
-        'HOST': '192.168.0.100',
+        'HOST': '10.0.0.99',
         'PORT': '3306',
     }
 }

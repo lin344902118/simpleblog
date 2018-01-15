@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 from django.conf.urls import url
-from views import DetailView, ArticlesView, VotesView
+from .views import DetailView, ArticlesView, VotesView
 
 urlpatterns = [
     url(r'^$', ArticlesView.as_view(), name='articles'),

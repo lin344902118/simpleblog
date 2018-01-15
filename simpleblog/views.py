@@ -1,8 +1,7 @@
 # -*- coding:utf-8 -*-
-from django.shortcuts import render, HttpResponsePermanentRedirect
+from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from django.contrib.auth import logout
-from django.core.urlresolvers import reverse
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
 from blog.models import Blog
 
@@ -24,7 +23,7 @@ class IndexView(View):
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return HttpResponsePermanentRedirect(reverse('index'))
+        return redirect('/index')
 
 
 class AboutView(View):

@@ -15,14 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from views import IndexView, LogoutView, AboutView
-from upload import upload
+from .views import IndexView, LogoutView, AboutView
+from .upload import upload
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^logout$', LogoutView.as_view(), name='logout'),
     url(r'^about$',AboutView.as_view(), name='about'),
-    url(r'^article/', include('blog.urls', namespace='article')),
+    url(r'^article/', include('blog.urls')),
     url(r'^admin/upload/$', upload, name='upload'),
 ]

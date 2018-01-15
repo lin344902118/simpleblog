@@ -46,7 +46,7 @@ def get_relative_file_path():
     dt = datetime.datetime.today()
     relative_path = 'upload/%s/%s/' %(dt.year,dt.month)
     absolute_path = os.path.join(settings.MEDIA_ROOT,relative_path)
-    print absolute_path
+    print(absolute_path)
     if not os.path.exists(absolute_path):
         os.makedirs(absolute_path)
     return relative_path

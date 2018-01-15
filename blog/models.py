@@ -20,9 +20,9 @@ class Category(models.Model):
 class Blog(models.Model):
     title = models.CharField(max_length=100, verbose_name=u'标题')
     public_time = models.DateTimeField(auto_now_add=True, verbose_name=u'发布时间')
-    author = models.ForeignKey(User, verbose_name=u'作者')
+    author = models.ForeignKey(User, verbose_name=u'作者', on_delete=models.PROTECT)
     content = models.TextField(verbose_name=u'内容')
-    category = models.ForeignKey(Category, verbose_name=u'分类')
+    category = models.ForeignKey(Category, verbose_name=u'分类', on_delete=models.PROTECT)
     votes = models.IntegerField(default=0, verbose_name=u'点赞次数')
 
     def __unicode__(self):
