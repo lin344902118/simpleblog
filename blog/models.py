@@ -9,7 +9,7 @@ class Category(models.Model):
     name = models.CharField(max_length=20, verbose_name=u'类名')
     description = models.CharField(max_length=100, default='', verbose_name=u'描述')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:
@@ -25,7 +25,7 @@ class Blog(models.Model):
     category = models.ForeignKey(Category, verbose_name=u'分类', on_delete=models.PROTECT)
     votes = models.IntegerField(default=0, verbose_name=u'点赞次数')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     class Meta:
