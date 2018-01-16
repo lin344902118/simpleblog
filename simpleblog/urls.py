@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^logout$', LogoutView.as_view(), name='logout'),
     url(r'^about$',AboutView.as_view(), name='about'),
-    url(r'^article/', include('blog.urls')),
+    url(r'^article/', include("blog.urls", namespace='article')),
     url(r'^admin/upload/$', upload, name='upload'),
 ]
+app_name = 'blog'
