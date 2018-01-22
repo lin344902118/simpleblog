@@ -1,0 +1,14 @@
+<header class="article_info">
+    <h1>
+        <a href="{% url 'article:detail' article.id %}">{{ article.title }}</a>
+    </h1>
+    <p class="article_author">
+        By
+        <a href="/about">
+        {{ article.author }}
+        </a>
+    </p>
+    <p class="article_time">
+        <time>发表于{{ article.public_time }}</time>
+    </p>
+</header>

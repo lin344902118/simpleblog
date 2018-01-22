@@ -1,0 +1,7 @@
+<div class="article_content">
+    <a href="{% url 'article:detail' article.id %}">
+        <p>
+            {{ article.content|linebreaksbr }}
+        </p>
+    </a>
+</div>

@@ -39,8 +39,9 @@ class Comment(models.Model):
     email = models.EmailField(verbose_name=u'邮箱')
     content = models.TextField(max_length=500, verbose_name=u'内容')
     time = models.DateTimeField(auto_now_add=True, verbose_name=u'时间')
+    article = models.ForeignKey(Blog, verbose_name=u'博客', on_delete=models.PROTECT)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nickname
 
     class Meta:

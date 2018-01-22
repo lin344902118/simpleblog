@@ -6,38 +6,58 @@
             <div id="main">
                 <span id="article_id" style="display:none">{{ article.id }}</span>
                 <article>
-                    <header class="article_info">
-                        <h1>
-                            <a href="{% url 'article:detail' article.id %}">{{ article.title }}</a>
-                        </h1>
-                        <p class="article_author">
-                            By
-                            <a href="">
-                            {{ article.author }}
-                            </a>
-                        </p>
-                        <p class="article_time">
-                            <time>发表于{{ article.public_time }}</time>
-                        </p>
-                    </header>
-                    <div class="article_content">
-                        <p>
-                        {{ article.content }}
-                        </p>
-                        <p class="article_more">
-                        </p>
-                    </div>
-                    <footer class="article_footer">
-                        <div class="article_catetags">
-                            {{ article.category }}
+                    {% include 'article_header.html' %}
+                    {% include 'article_content.html' %}
+                    {% block article_footer %}
+                        <footer class="article_footer">
+                            <div class="article_catetags">
+                                {{ article.category }}
+                            </div>
+                            <img src="{% static 'image/zan.jpg' %}" class="zan"/>
+                            <span id="votes">{{ article.votes }}</span>
+                            <img src="{% static 'image/comment.jpg' %}" class="comment" />
+                        </footer>
+                    {% endblock %}
+                    {% block comment %}
+                        <div class="article_info">
+                            <h1>评论列表</h1>
                         </div>
-                        <img src="{% static 'image/zan.jpg' %}" class="zan"/>
-                        <span id="votes">{{ article.votes }}</span>
-                        <img src="{% static 'image/comment.jpg' %}" class="comment" />
-                    </footer>
-                    <form method="post" action="#" class="article_footer" style="display:none" id="comment">
-                        {{ commentForm }}
-                    </form>
+                        {% for comment in comments %}
+                            <div class="article_content">
+                                <p>昵称:{{ comment.nickname }}</p>
+                                <p>邮箱:{{ comment.email }}</p>
+                                <p>评论时间:{{ comment.time }}</p>
+                                <p>评论:{{ comment.content }}</p>
+                            </div>
+                            <hr/>
+                        {% endfor %}
+                        <form method="post" action="/article/comment" class="comment_form" style="display:none" id="comment">
+                            {% if commentForm.errors %}
+                                <p style="color:red">
+                                    错误:{{ commentForm.errors|pluralize }}
+                                </p>
+                            {% endif %}
+                            <input type="hidden" name="id" value="{{ article.id}}">
+                            <div class="comment_div">
+                                <label for="nickname">昵称</label>
+                                {{ commentForm.nickname }}
+                                </div>
+                            <div class="comment_div">
+                                <label for="email">邮箱</label>
+                                {{ commentForm.email }}
+                                </div>
+                            <div class="comment_div">
+                                <label for="content">评论内容</label>
+                            </div>
+                            <div class="comment_div">
+                                {{ commentForm.content }}
+                            </div>
+                            {% csrf_token %}
+                            <div class="comment_div">
+                                <button type="submit" class="input">提交评论</button>
+                            </div>
+                        </form>
+                    {% endblock %}
                 </article>
             </div>
         {% endblock %}
@@ -69,7 +89,7 @@
             ajax(type='POST', url='/article/votes/', datas=datas, msg='点赞')
         });
         $('.comment').click(function(){
-            $('#comment').style.display='block';
+            $('#comment')[0].style.display='block';
         });
     });
 </script>

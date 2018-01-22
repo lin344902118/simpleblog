@@ -49,14 +49,14 @@ body {
         }
         .info {
             margin: 4.5em 0 2em 0;
-            width: 75%;
+            width: 70%;
             font-size: 150%;
             line-height: 1.3em;
             color: #fff;
             float: left;
         }
         .social {
-            width: 15em;
+            width: 20%;
             position: absolute;
             right: -2em;
             top: 3em;
@@ -70,9 +70,30 @@ body {
         .social a {
             float: left;
             display: block;
-            width: 14%;
             color: #fff;
-            font-size: 185%
+            font-size: 185%;
+            margin-left: 20px;
+        }
+        .icon-github {
+            width: 2em;
+            height: 2em;
+            background-size: 7em 7em;
+            border-radius: 3.5em;
+            background: no-repeat url('../image/github.jpg') left top;
+        }
+        .icon-blog {
+            width: 2em;
+            height: 2em;
+            background-size: 7em 7em;
+            border-radius: 3.5em;
+            background: no-repeat url('../image/blog.jpg') left top;
+        }
+        .icon-zhihu {
+            width: 2em;
+            height: 2em;
+            background-size: 7em 7em;
+            border-radius: 3.5em;
+            background: no-repeat url('../image/zhihu.jpg') left top;
         }
         nav {
             float: right;
@@ -93,7 +114,6 @@ body {
             margin-bottom: 3.5em;
         }
         .article_info {
-            height: 90px;
             border-bottom: 1px solid #dbdbdb;
         }
         .article_info h1 {
@@ -268,4 +288,14 @@ body {
             list-style: none;
             float: left;
             margin-right: 20px;
+        }
+        .comment_form {
+            border-top: 1px solid #dbdbdb;
+        }
+        .comment_div {
+            margin-left: 2%;
+        }
+        .input {
+            margin-top:10px;
+            margin-bottom:10px;
         }

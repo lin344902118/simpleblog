@@ -6,11 +6,6 @@
     <title>鸡蛋有点黄的博客</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
-    <!--<style>-->
-        <!--body{-->
-            <!--text-align:center;-->
-        <!--}-->
-    <!--</style>-->
 </head>
 <body>
     <header id="header">
@@ -32,6 +27,7 @@
                 <li>
                     <form class="search" action="/search" method="get" accept-charset="utf-8">
                         <input type="search" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索">
+                        {% csrf_token %}
                     </form>
                 </li>
             </ul>
@@ -80,7 +76,10 @@
                 </p>
             </section>
             <div class="social">
-                <a href="http://www.cnblogs.com/lgh344902118/"></a></div>
+                <a href="http://www.cnblogs.com/lgh344902118/" class="icon-blog" title="博客园"></a>
+                <a href="https://github.com/lin344902118" class="icon-github" title="github"></a>
+                <a href="" class="icon-zhihu" title="知乎"></a>
+            </div>
             <p class="copyright">by 鸡蛋有点黄</p>
         </div>
     </footer>

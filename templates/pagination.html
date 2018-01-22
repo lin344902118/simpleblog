@@ -1,0 +1,32 @@
+<!-- 分页器 -->
+<div>
+    <ul class="actions">
+        {% if articles.has_previous %}
+        <li>
+            <a href="?{{ articles.previous_page_number.querystring }}" class="prev">上一页</a>
+        </li>
+        {% endif %}
+        {% for page in articles.pages %}
+        {% if page %}
+        {% ifequal page articles.number %}
+        <li>
+            <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+        </li>
+        {% else %}
+        <li>
+            <a href="?{{ page.querystring }}" class="page">{{ page }}</a>
+        </li>
+        {% endifequal %}
+        {% else %}
+        <li>
+            <a href="">...</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        {% if articles.has_next %}
+        <li>
+            <a href="?{{ articles.next_page_number.querystring }}" class="next">下一页</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>

@@ -1,9 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic.base import View
-from blog.models import Blog, Category
-from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+from blog.models import Blog, Category, Comment
+from simpleblog.views import pagn
 from .forms import CommentForm
-from django.shortcuts import HttpResponse
 import json
 
 
@@ -12,14 +11,7 @@ class ArticlesView(View):
     def get(self, request):
         articles = Blog.objects.all()
         categorys = Category.objects.all()
-        try:
-            page = request.GET.get('page', 1)
-        except PageNotAnInteger:
-            page = 1
-        except EmptyPage:
-            page = 1
-        p = Paginator(articles, per_page=3, request=request)
-        articles = p.page(page)
+        articles = pagn(request, articles)
         return render(request, 'articles.html', {'articles': articles, 'categorys': categorys})
 
 
@@ -27,8 +19,11 @@ class DetailView(View):
     def get(self, request, article_id):
         article = Blog.objects.get(id=int(article_id))
         categorys = Category.objects.all()
+        comments = Comment.objects.filter(article=article)
         commentForm = CommentForm
-        return render(request, 'details.html', {'article': article, 'categorys': categorys, 'commentForm': commentForm})
+        # article.content = article.content.replace('\n', '</p><p>')
+        return render(request, 'details.html',
+                      {'article': article, 'categorys': categorys, 'comments': comments,'commentForm': commentForm})
 
 
 class VotesView(View):
@@ -49,3 +44,25 @@ class VotesView(View):
             result['status'] = 'failed'
             result['message'] = str(e)
         return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+class CommentView(View):
+    def post(self, request):
+        form = CommentForm(request.POST)
+        article_id = request.POST.get('id', '')
+        if not article_id:
+            e = 'id error'
+            raise e
+        if form.is_valid():
+            cd = form.cleaned_data
+            article = Blog.objects.get(id=article_id)
+            comment = Comment.objects.create(nickname=cd['nickname'],
+                                             email=cd['email'],
+                                             content=cd['content'],
+                                             article = article)
+            if comment:
+                return redirect('/article/%s' %article_id)
+        categorys = Category.objects.all()
+        commentForm = CommentForm()
+        return render(request, 'details.html', {'article': article, 'categorys': categorys, 'commentForm': commentForm})
+
