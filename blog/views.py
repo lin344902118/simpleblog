@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.views.generic.base import View
-from blog.models import Blog, Category, Comment
+from blog.models import Blog, Category, Comment, BlogPic
 from simpleblog.views import pagn
 from .forms import CommentForm
 import json
@@ -66,3 +66,12 @@ class CommentView(View):
         commentForm = CommentForm()
         return render(request, 'details.html', {'article': article, 'categorys': categorys, 'commentForm': commentForm})
 
+
+def uploadImg(request):
+    img = request.FILES.get('img')
+    adminImg = BlogPic()
+    adminImg.filename = img.name
+    adminImg.img = img
+    adminImg.save()
+    return HttpResponse("<script>top.$('.mce-btn.mce-open').parent().find('.mce-textbox').val('/media/%s')"
+                        ".closest('.mce-window').find('.mce-primary').click();</script>" %adminImg.img)

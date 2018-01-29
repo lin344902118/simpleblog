@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=20, verbose_name=u'类名')
@@ -32,6 +33,11 @@ class Blog(models.Model):
         verbose_name = u'博文'
         verbose_name_plural = verbose_name
         ordering = ['-public_time']
+
+
+class BlogPic(models.Model):
+    filename = models.CharField(max_length=200, blank=True, null=True)
+    img = models.ImageField(upload_to='./media')
 
 
 class Comment(models.Model):

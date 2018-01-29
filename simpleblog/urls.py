@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.static import serve
+from simpleblog.settings import MEDIA_ROOT
 from .views import IndexView, LogoutView, AboutView, SearchView
-from .upload import upload
+from blog.views import uploadImg
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,6 +27,7 @@ urlpatterns = [
     url(r'^about$', AboutView.as_view(), name='about'),
     url(r'^search$', SearchView.as_view(), name='search'),
     url(r'^article/', include("blog.urls", namespace='article')),
-    url(r'^admin/upload/$', upload, name='upload'),
+    url(r'uploadImg', uploadImg, name='uploadImg'),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
 ]
 app_name = 'blog'

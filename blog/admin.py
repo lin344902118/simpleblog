@@ -4,11 +4,17 @@ from .models import Blog, Category
 
 # Register your models here.
 class BlogAdmin(admin.ModelAdmin):
+    list_display = ("title", "author", "category", "public_time", "votes")
+    search_fields = ("title", "author", "category")
+    list_filter = ("public_time", "votes")
+    ordering = ("-public_time",)
+
     class Media:
         js = (
-            '/static/js/editor/kindeditor/kindeditor-all.js',
-            '/static/js/editor/kindeditor/lang/zh-CN.js',
-            '/static/js/editor/kindeditor/config.js',
+            '/static/js/jquery-3.2.1.min.js',
+            '/static/js/tinymce/js/tinymce/tinymce.min.js',
+            '/static/js/tinymce/js/tinymce/jquery.tinymce.min.js',
+            '/static/js/tinymce/js/tinymce/textareas.js'
         )
 
 
